@@ -1,0 +1,14 @@
+{
+	"id": "{b4e8c07f-d7e8-457f-b173-a181a480dc2b}",
+	"name": "iEM3155",
+	"type": 3,
+	"vendor": "Schneider",
+	"aliases": 
+	[
+		"iEM 3155"
+	],
+	"parentRequirements": ["{9ada93b7-992c-4e72-b721-b19741af09b5}"],
+	"childRequirements": [],
+	"implemented": ["{fec583cf-c767-4222-8545-cbdf3c3d5d53}"],
+	"prefix": "iEM3155"
+}
