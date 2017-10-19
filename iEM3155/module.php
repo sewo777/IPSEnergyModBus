@@ -48,7 +48,7 @@ class iEM3155 extends IPSModule
             return false;
         for ($index = 0; $index < 3; $index++)
         {
-            $Volt = $this->SendDataToParent(json_encode(Array("DataID" => "{E310B701-4AE7-458E-B618-EC13A1A6F6A8}", "Function" => 4, "Address" => ($index * 2), "Quantity" => 2, "Data" => "")));
+            $Volt = $this->SendDataToParent(json_encode(Array("DataID" => "{9ada93b7-992c-4e72-b721-b19741af09b5}", "Function" => 4, "Address" => ($index * 2), "Quantity" => 2, "Data" => "")));
             if ($Volt === false)
             {
                 $this->unlock($IO);
@@ -60,7 +60,7 @@ class iEM3155 extends IPSModule
         }
         for ($index = 0; $index < 3; $index++)
         {
-            $Ampere = $this->SendDataToParent(json_encode(Array("DataID" => "{E310B701-4AE7-458E-B618-EC13A1A6F6A8}", "Function" => 4, "Address" => 6 + ($index * 2), "Quantity" => 2, "Data" => "")));
+            $Ampere = $this->SendDataToParent(json_encode(Array("DataID" => "{9ada93b7-992c-4e72-b721-b19741af09b5}", "Function" => 4, "Address" => 6 + ($index * 2), "Quantity" => 2, "Data" => "")));
             if ($Ampere === false)
             {
                 $this->unlock($IO);
@@ -72,7 +72,7 @@ class iEM3155 extends IPSModule
         }
         for ($index = 0; $index < 3; $index++)
         {
-            $Watt = $this->SendDataToParent(json_encode(Array("DataID" => "{E310B701-4AE7-458E-B618-EC13A1A6F6A8}", "Function" => 4, "Address" => 12 + ($index * 2), "Quantity" => 2, "Data" => "")));
+            $Watt = $this->SendDataToParent(json_encode(Array("DataID" => "{9ada93b7-992c-4e72-b721-b19741af09b5}", "Function" => 4, "Address" => 12 + ($index * 2), "Quantity" => 2, "Data" => "")));
             if ($Watt === false)
             {
                 $this->unlock($IO);
@@ -85,7 +85,7 @@ class iEM3155 extends IPSModule
         //Scheinleistung
         for ($index = 0; $index < 3; $index++)
         {
-            $Va = $this->SendDataToParent(json_encode(Array("DataID" => "{E310B701-4AE7-458E-B618-EC13A1A6F6A8}", "Function" => 4, "Address" => 18 + ($index * 2), "Quantity" => 2, "Data" => "")));
+            $Va = $this->SendDataToParent(json_encode(Array("DataID" => "{9ada93b7-992c-4e72-b721-b19741af09b5}", "Function" => 4, "Address" => 18 + ($index * 2), "Quantity" => 2, "Data" => "")));
             if ($Va === false)
             {
                 $this->unlock($IO);
@@ -98,7 +98,7 @@ class iEM3155 extends IPSModule
         //Blindleistung
         for ($index = 0; $index < 3; $index++)
         {
-            $Var = $this->SendDataToParent(json_encode(Array("DataID" => "{E310B701-4AE7-458E-B618-EC13A1A6F6A8}", "Function" => 4, "Address" => 24 + ($index * 2), "Quantity" => 2, "Data" => "")));
+            $Var = $this->SendDataToParent(json_encode(Array("DataID" => "{9ada93b7-992c-4e72-b721-b19741af09b5}", "Function" => 4, "Address" => 24 + ($index * 2), "Quantity" => 2, "Data" => "")));
             if ($Var === false)
             {
                 $this->unlock($IO);
@@ -111,7 +111,7 @@ class iEM3155 extends IPSModule
         //PhaseAngle
         for ($index = 0; $index < 3; $index++)
         {
-            $PhaseAngle = $this->SendDataToParent(json_encode(Array("DataID" => "{E310B701-4AE7-458E-B618-EC13A1A6F6A8}", "Function" => 4, "Address" => 36 + ($index * 2), "Quantity" => 2, "Data" => "")));
+            $PhaseAngle = $this->SendDataToParent(json_encode(Array("DataID" => "{9ada93b7-992c-4e72-b721-b19741af09b5}", "Function" => 4, "Address" => 36 + ($index * 2), "Quantity" => 2, "Data" => "")));
             if ($PhaseAngle === false)
             {
                 $this->unlock($IO);
@@ -121,7 +121,7 @@ class iEM3155 extends IPSModule
             $this->SendDebug('PhaseAngle L' . ($index + 1), $PhaseAngle, 0);
             SetValue($this->GetIDForIdent("PhaseAngleL" . ($index + 1)), $PhaseAngle);
         }
-        $Frequenz = $this->SendDataToParent(json_encode(Array("DataID" => "{E310B701-4AE7-458E-B618-EC13A1A6F6A8}", "Function" => 4, "Address" => 70, "Quantity" => 2, "Data" => "")));
+        $Frequenz = $this->SendDataToParent(json_encode(Array("DataID" => "{9ada93b7-992c-4e72-b721-b19741af09b5}", "Function" => 4, "Address" => 70, "Quantity" => 2, "Data" => "")));
         if ($Frequenz === false)
         {
             $this->unlock($IO);
@@ -132,7 +132,7 @@ class iEM3155 extends IPSModule
         SetValue($this->GetIDForIdent("Frequenz"), $Frequenz);
         for ($index = 0; $index < 3; $index++)
         {
-            $Total = $this->SendDataToParent(json_encode(Array("DataID" => "{E310B701-4AE7-458E-B618-EC13A1A6F6A8}", "Function" => 4, "Address" => 376 + ($index * 2), "Quantity" => 2, "Data" => "")));
+            $Total = $this->SendDataToParent(json_encode(Array("DataID" => "{9ada93b7-992c-4e72-b721-b19741af09b5}", "Function" => 4, "Address" => 376 + ($index * 2), "Quantity" => 2, "Data" => "")));
             if ($Total === false)
             {
                 $this->unlock($IO);
