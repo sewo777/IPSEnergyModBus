@@ -48,7 +48,7 @@ class iEM3155 extends IPSModule
             return false;
         for ($index = 0; $index < 3; $index++)
         {
-            $Volt = $this->SendDataToParent(json_encode(Array("DataID" => "{9ada93b7-992c-4e72-b721-b19741af09b5}", "Function" => 4, "Address" => ($index * 2), "Quantity" => 2, "Data" => "")));
+            $Volt = $this->SendDataToParent(json_encode(Array("DataID" => "{9ada93b7-992c-4e72-b721-b19741af09b5}", "Function" => 4, "Address" => 3028, "Quantity" => 2, "Data" => "")));
             if ($Volt === false)
             {
                 $this->unlock($IO);
