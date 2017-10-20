@@ -10,7 +10,7 @@ class iEM3155 extends IPSModule
         parent::Create();
         $this->ConnectParent("{A5F663AB-C400-4FE5-B207-4D67CC030564}");
         $this->RegisterPropertyInteger("Interval", 0);
-        $this->RegisterTimer("UpdateTimer", 0, "SDM630_RequestRead(\$_IPS['TARGET']);");
+        $this->RegisterTimer("UpdateTimer", 0, "iEM3155_RequestRead(\$_IPS['TARGET']);");
     }
     public function ApplyChanges()
     {
