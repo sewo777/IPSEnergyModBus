@@ -35,7 +35,7 @@ class iEM3155 extends IPSModule
             return false;
        
        
-        $Frequenz = $this->SendDataToParent(json_encode(Array("DataID" => "{E310B701-4AE7-458E-B618-EC13A1A6F6A8}", "Function" => 3, "Address" => 3108, "Quantity" => 2, "Data" => "")));
+        $Frequenz = $this->SendDataToParent(json_encode(Array("DataID" => "{E310B701-4AE7-458E-B618-EC13A1A6F6A8}", "Function" => 1, "Address" => 3108, "Quantity" => 2, "Data" => "")));
         if ($Frequenz === false)
         {
             $this->unlock($IO);
