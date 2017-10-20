@@ -19,17 +19,21 @@ class iEM3155 extends IPSModule
         $this->RegisterVariableFloat("VoltL2", "Spannung L2", "Volt.230", 1);
         $this->RegisterVariableFloat("VoltL3", "Spannung L3", "Volt.230", 1);
         
-        $this->RegisterVariableFloat("AmpereL1", "Ampere L1", "Ampere.16", 2);
-        $this->RegisterVariableFloat("AmpereL2", "Ampere L2", "Ampere.16", 2);
-        $this->RegisterVariableFloat("AmpereL3", "Ampere L3", "Ampere.16", 2);
+        $this->RegisterVariableFloat("VoltL1_L2", "Spannung L1-L2", "Volt", 2);
+        $this->RegisterVariableFloat("VoltL2_L3", "Spannung L2-L3", "Volt", 2);
+        $this->RegisterVariableFloat("VoltL3_L1", "Spannung L3-L1", "Volt", 2);
+        
+        $this->RegisterVariableFloat("AmpereL1", "Ampere L1", "Ampere.16", 3);
+        $this->RegisterVariableFloat("AmpereL2", "Ampere L2", "Ampere.16", 3);
+        $this->RegisterVariableFloat("AmpereL3", "Ampere L3", "Ampere.16", 3);
         
         $this->RegisterVariableFloat("WattL1", "Watt L1", "Watt.14490", 4);
         $this->RegisterVariableFloat("WattL2", "Watt L2", "Watt.14490", 4);
         $this->RegisterVariableFloat("WattL3", "Watt L3", "Watt.14490", 4);
         
-        $this->RegisterVariableFloat("Frequenz", "Frequenz", "Hertz.50", 3);
+        $this->RegisterVariableFloat("Frequenz", "Frequenz", "Hertz.50", 5);
         
-        $this->RegisterVariableFloat("Total", "Verbrauch Gesammt kWh", "Electricity", 5);
+        $this->RegisterVariableFloat("Total", "Verbrauch Gesammt kWh", "Electricity", 6);
 
         if ($this->ReadPropertyInteger("Interval") > 0)
             $this->SetTimerInterval("UpdateTimer", $this->ReadPropertyInteger("Interval"));
