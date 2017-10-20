@@ -1,5 +1,5 @@
 <?
-class SDM630 extends IPSModule
+class iEM3155 extends IPSModule
 {
     public function __construct($InstanceID)
     {
