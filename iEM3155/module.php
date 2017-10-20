@@ -19,9 +19,9 @@ class iEM3155 extends IPSModule
         $this->RegisterVariableFloat("VoltL2", "Spannung L2", "Volt.230", 1);
         $this->RegisterVariableFloat("VoltL3", "Spannung L3", "Volt.230", 1);
         
-        $this->RegisterVariableFloat("VoltL1_L2", "Spannung L1-L2", "Volt", 2);
-        $this->RegisterVariableFloat("VoltL2_L3", "Spannung L2-L3", "Volt", 2);
-        $this->RegisterVariableFloat("VoltL3_L1", "Spannung L3-L1", "Volt", 2);
+        $this->RegisterVariableFloat("VoltP1", "Spannung L1-L2", "Volt", 2);
+        $this->RegisterVariableFloat("VoltP2", "Spannung L2-L3", "Volt", 2);
+        $this->RegisterVariableFloat("VoltP3", "Spannung L3-L1", "Volt", 2);
         
         $this->RegisterVariableFloat("AmpereL1", "Ampere L1", "Ampere.16", 3);
         $this->RegisterVariableFloat("AmpereL2", "Ampere L2", "Ampere.16", 3);
@@ -34,7 +34,6 @@ class iEM3155 extends IPSModule
         $this->RegisterVariableFloat("Frequenz", "Frequenz", "Hertz.50", 5);
         
         $this->RegisterVariableFloat("Total", "Verbrauch Gesammt kWh", "Electricity", 6);
-
         if ($this->ReadPropertyInteger("Interval") > 0)
             $this->SetTimerInterval("UpdateTimer", $this->ReadPropertyInteger("Interval"));
         else
@@ -50,9 +49,11 @@ class iEM3155 extends IPSModule
             return false;
         if (!$this->lock($IO))
             return false;
+		
+		//Spannung L1, L2, L3 - N
         for ($index = 0; $index < 3; $index++)
         {
-            $Volt = $this->SendDataToParent(json_encode(Array("DataID" => "{9ada93b7-992c-4e72-b721-b19741af09b5}", "Function" => 4, "Address" => 3028, "Quantity" => 2, "Data" => "")));
+            $Volt = $this->SendDataToParent(json_encode(Array("DataID" => "{9ada93b7-992c-4e72-b721-b19741af09b5}", "Function" => 4, "Address" => 3026, "Quantity" => 2, "Data" => "")));
             if ($Volt === false)
             {
                 $this->unlock($IO);
@@ -62,9 +63,23 @@ class iEM3155 extends IPSModule
             $this->SendDebug('Volt L' . ($index + 1), $Volt, 0);
             SetValue($this->GetIDForIdent("VoltL" . ($index + 1)), $Volt);
         }
+		//Spannung Phase gegen Phase
         for ($index = 0; $index < 3; $index++)
         {
-            $Ampere = $this->SendDataToParent(json_encode(Array("DataID" => "{9ada93b7-992c-4e72-b721-b19741af09b5}", "Function" => 4, "Address" => 6 + ($index * 2), "Quantity" => 2, "Data" => "")));
+            $Volt400 = $this->SendDataToParent(json_encode(Array("DataID" => "{9ada93b7-992c-4e72-b721-b19741af09b5}", "Function" => 4, "Address" => 3020, "Quantity" => 2, "Data" => "")));
+            if ($Volt400 === false)
+            {
+                $this->unlock($IO);
+                return false;
+            }
+            $Volt400 = unpack("G", substr($Volt400, 2))[1];
+            $this->SendDebug('Volt P' . ($index + 1), $Volt400, 0);
+            SetValue($this->GetIDForIdent("VoltP" . ($index + 1)), $Volt400);
+        }
+		//Strom
+        for ($index = 0; $index < 3; $index++)
+        {
+            $Ampere = $this->SendDataToParent(json_encode(Array("DataID" => "{9ada93b7-992c-4e72-b721-b19741af09b5}", "Function" => 4, "Address" => 2998, "Quantity" => 2, "Data" => "")));
             if ($Ampere === false)
             {
                 $this->unlock($IO);
@@ -74,9 +89,10 @@ class iEM3155 extends IPSModule
             $this->SendDebug('Ampere L' . ($index + 1), $Ampere, 0);
             SetValue($this->GetIDForIdent("AmpereL" . ($index + 1)), $Ampere);
         }
+		//Leistung
         for ($index = 0; $index < 3; $index++)
         {
-            $Watt = $this->SendDataToParent(json_encode(Array("DataID" => "{9ada93b7-992c-4e72-b721-b19741af09b5}", "Function" => 4, "Address" => 12 + ($index * 2), "Quantity" => 2, "Data" => "")));
+            $Watt = $this->SendDataToParent(json_encode(Array("DataID" => "{9ada93b7-992c-4e72-b721-b19741af09b5}", "Function" => 4, "Address" => 3052, "Quantity" => 2, "Data" => "")));
             if ($Watt === false)
             {
                 $this->unlock($IO);
@@ -86,46 +102,10 @@ class iEM3155 extends IPSModule
             $this->SendDebug('Watt L' . ($index + 1), $Watt, 0);
             SetValue($this->GetIDForIdent("WattL" . ($index + 1)), $Watt);
         }
-        //Scheinleistung
-        for ($index = 0; $index < 3; $index++)
-        {
-            $Va = $this->SendDataToParent(json_encode(Array("DataID" => "{9ada93b7-992c-4e72-b721-b19741af09b5}", "Function" => 4, "Address" => 18 + ($index * 2), "Quantity" => 2, "Data" => "")));
-            if ($Va === false)
-            {
-                $this->unlock($IO);
-                return false;
-            }
-            $Va = unpack("G", substr($Va, 2))[1];
-            $this->SendDebug('VA L' . ($index + 1), $Va, 0);
-            SetValue($this->GetIDForIdent("VAL" . ($index + 1)), $Va);
-        }
-        //Blindleistung
-        for ($index = 0; $index < 3; $index++)
-        {
-            $Var = $this->SendDataToParent(json_encode(Array("DataID" => "{9ada93b7-992c-4e72-b721-b19741af09b5}", "Function" => 4, "Address" => 24 + ($index * 2), "Quantity" => 2, "Data" => "")));
-            if ($Var === false)
-            {
-                $this->unlock($IO);
-                return false;
-            }
-            $Var = unpack("G", substr($Var, 2))[1];
-            $this->SendDebug('VAr L' . ($index + 1), $Var, 0);
-            SetValue($this->GetIDForIdent("VArL" . ($index + 1)), $Var);
-        }
-        //PhaseAngle
-        for ($index = 0; $index < 3; $index++)
-        {
-            $PhaseAngle = $this->SendDataToParent(json_encode(Array("DataID" => "{9ada93b7-992c-4e72-b721-b19741af09b5}", "Function" => 4, "Address" => 36 + ($index * 2), "Quantity" => 2, "Data" => "")));
-            if ($PhaseAngle === false)
-            {
-                $this->unlock($IO);
-                return false;
-            }
-            $PhaseAngle = unpack("G", substr($PhaseAngle, 2))[1];
-            $this->SendDebug('PhaseAngle L' . ($index + 1), $PhaseAngle, 0);
-            SetValue($this->GetIDForIdent("PhaseAngleL" . ($index + 1)), $PhaseAngle);
-        }
-        $Frequenz = $this->SendDataToParent(json_encode(Array("DataID" => "{9ada93b7-992c-4e72-b721-b19741af09b5}", "Function" => 4, "Address" => 70, "Quantity" => 2, "Data" => "")));
+        
+        
+		//Frequenz
+        $Frequenz = $this->SendDataToParent(json_encode(Array("DataID" => "{9ada93b7-992c-4e72-b721-b19741af09b5}", "Function" => 4, "Address" => 3108, "Quantity" => 2, "Data" => "")));
         if ($Frequenz === false)
         {
             $this->unlock($IO);
