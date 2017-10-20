@@ -1,14 +1,14 @@
 {
-	"id": "{b4e8c07f-d7e8-457f-b173-a181a480dc2b}",
-	"name": "iEM3155",
+	"id": "{BBCA5E14-505E-4394-B653-8CD33AD52037}",
+	"name": "SDM630",
 	"type": 3,
-	"vendor": "Schneider",
+	"vendor": "B+G E-Tech",
 	"aliases": 
 	[
-		"iEM 3155"
+		"SDM 630"
 	],
-	"parentRequirements": ["{9ada93b7-992c-4e72-b721-b19741af09b5}"],
+	"parentRequirements": ["{E310B701-4AE7-458E-B618-EC13A1A6F6A8}"],
 	"childRequirements": [],
-	"implemented": ["{fec583cf-c767-4222-8545-cbdf3c3d5d53}"],
-	"prefix": "iEM3155"
+	"implemented": ["{77B31ABB-18FA-4B91-BB63-E5B2AB5588F4}"],
+	"prefix": "SDM630"
 }
