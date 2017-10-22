@@ -1,6 +1,6 @@
 <?
 
-class iEM3xxx extends IPSModule
+class iEM3155 extends IPSModule
 {
 
     public function __construct($InstanceID)
@@ -16,7 +16,7 @@ class iEM3xxx extends IPSModule
 
         $this->RegisterPropertyInteger("Interval", 0);
 
-        $this->RegisterTimer("UpdateTimer", 0, "iEM3xxx_RequestRead(\$_IPS['TARGET']);");
+        $this->RegisterTimer("UpdateTimer", 0, "iEM3155_RequestRead(\$_IPS['TARGET']);");
     }
 
     public function ApplyChanges()
