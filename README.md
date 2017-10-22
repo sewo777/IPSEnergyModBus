@@ -12,4 +12,4 @@ Symcon Modul für Schneider Electric Energiezähler iEM3000 Serie
 - __iEM3555__ 
 
 # Modul ersteller ist Nall-chan https://github.com/Nall-chan/IPSBGETech
-# Dieser Modul wurde nur an die iEM3000 Serie angepasst!
+Dieser Modul wurde nur an die iEM3000 Serie angepasst!
