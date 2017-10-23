@@ -1,7 +1,7 @@
 {
 	"id": "{7f6181fb-a4ea-49dc-9739-284859271465}",
 	"author": "Sergej Wolf",
-	"name": "Schneider Electric Energiezähler iEM3000 Serie",
+	"name": "ModBus Energiezähler",
 	"url": "github.com/sewo777",
 	"version": "1.0",
 	"build": 0,
