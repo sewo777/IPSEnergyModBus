@@ -56,7 +56,7 @@ class UMG96 extends IPSModule
 	//Spannung L1-L2, L2-L3, L3-L1
          for ($index = 0; $index < 3; $index++)
         {
-            $Volt = $this->SendDataToParent(json_encode(Array("DataID" => "{E310B701-4AE7-458E-B618-EC13A1A6F6A8}", "Function" => 3, "Address" => 19007 + ($index * 2), "Quantity" => 2, "Data" => "")));
+            $Volt = $this->SendDataToParent(json_encode(Array("DataID" => "{E310B701-4AE7-458E-B618-EC13A1A6F6A8}", "Function" => 3, "Address" => 19006 + ($index * 2), "Quantity" => 2, "Data" => "")));
             if ($Volt === false)
             {
                 $this->unlock($IO);
@@ -69,7 +69,7 @@ class UMG96 extends IPSModule
 	//Spannung L1-N, L2-N, L3-N	
 	for ($index = 0; $index < 3; $index++)
         {
-            $Volt2 = $this->SendDataToParent(json_encode(Array("DataID" => "{E310B701-4AE7-458E-B618-EC13A1A6F6A8}", "Function" => 3, "Address" => 19001 + ($index * 2), "Quantity" => 2, "Data" => "")));
+            $Volt2 = $this->SendDataToParent(json_encode(Array("DataID" => "{E310B701-4AE7-458E-B618-EC13A1A6F6A8}", "Function" => 3, "Address" => 19000 + ($index * 2), "Quantity" => 2, "Data" => "")));
             if ($Volt2 === false)
             {
                 $this->unlock($IO);
@@ -82,7 +82,7 @@ class UMG96 extends IPSModule
 	//Strom
         for ($index = 0; $index < 3; $index++)
         {
-            $Ampere = $this->SendDataToParent(json_encode(Array("DataID" => "{E310B701-4AE7-458E-B618-EC13A1A6F6A8}", "Function" => 3, "Address" => 19013 + ($index * 2), "Quantity" => 2, "Data" => "")));
+            $Ampere = $this->SendDataToParent(json_encode(Array("DataID" => "{E310B701-4AE7-458E-B618-EC13A1A6F6A8}", "Function" => 3, "Address" => 19012 + ($index * 2), "Quantity" => 2, "Data" => "")));
             if ($Ampere === false)
             {
                 $this->unlock($IO);
@@ -95,7 +95,7 @@ class UMG96 extends IPSModule
 	//Arbeit
         for ($index = 0; $index < 3; $index++)
         {
-            $Watt = $this->SendDataToParent(json_encode(Array("DataID" => "{E310B701-4AE7-458E-B618-EC13A1A6F6A8}", "Function" => 3, "Address" => 19021 + ($index * 2), "Quantity" => 2, "Data" => "")));
+            $Watt = $this->SendDataToParent(json_encode(Array("DataID" => "{E310B701-4AE7-458E-B618-EC13A1A6F6A8}", "Function" => 3, "Address" => 19020 + ($index * 2), "Quantity" => 2, "Data" => "")));
             if ($Watt === false)
             {
                 $this->unlock($IO);
@@ -106,7 +106,7 @@ class UMG96 extends IPSModule
             SetValue($this->GetIDForIdent("WattL" . ($index + 1)), $Watt);
         }
 	//Arbeit Gesammt
-        $Watt_Total = $this->SendDataToParent(json_encode(Array("DataID" => "{E310B701-4AE7-458E-B618-EC13A1A6F6A8}", "Function" => 3, "Address" => 19027, "Quantity" => 2, "Data" => "")));
+        $Watt_Total = $this->SendDataToParent(json_encode(Array("DataID" => "{E310B701-4AE7-458E-B618-EC13A1A6F6A8}", "Function" => 3, "Address" => 19026, "Quantity" => 2, "Data" => "")));
         if ($Watt_Total=== false)
         {
             $this->unlock($IO);
@@ -117,7 +117,7 @@ class UMG96 extends IPSModule
         SetValue($this->GetIDForIdent("Watt_Total"), $Watt_Total);
         
 	//Frequenz
-        $Frequenz = $this->SendDataToParent(json_encode(Array("DataID" => "{E310B701-4AE7-458E-B618-EC13A1A6F6A8}", "Function" => 3, "Address" => 19051, "Quantity" => 2, "Data" => "")));
+        $Frequenz = $this->SendDataToParent(json_encode(Array("DataID" => "{E310B701-4AE7-458E-B618-EC13A1A6F6A8}", "Function" => 3, "Address" => 19050, "Quantity" => 2, "Data" => "")));
         if ($Frequenz === false)
         {
             $this->unlock($IO);
@@ -129,13 +129,13 @@ class UMG96 extends IPSModule
 	    
 	//Verbrauch
         
-          $total= $this->SendDataToParent(json_encode(Array("DataID" => "{E310B701-4AE7-458E-B618-EC13A1A6F6A8}", "Function" => 3, "Address" => 19061, "Quantity" => 2, "Data" => "")));   
+          $total= $this->SendDataToParent(json_encode(Array("DataID" => "{E310B701-4AE7-458E-B618-EC13A1A6F6A8}", "Function" => 3, "Address" => 19060, "Quantity" => 2, "Data" => "")));   
         if ($total === false)   
         {   
             $this->unlock($IO);   
             return false;   
         }  
-        $total = unpack("f", strrev(substr($Frequenz, 2)))[1];  
+        $total = unpack("f", strrev(substr($total,2)))[1] / 1000;
         $this->SendDebug('Total', $total, 0);  
     	SetValue($this->GetIDForIdent("Total"), $total);   
       
@@ -164,7 +164,7 @@ class UMG96 extends IPSModule
         return false;
     }
     /**
-     * Löscht eine Semaphore.
+     * LÃ¶scht eine Semaphore.
      * @param string $ident Ein String der den Lock bezeichnet.
      */
     private function unlock($ident)
