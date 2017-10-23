@@ -1,4 +1,4 @@
-# IPSEneryModBus
+# IPSEnergyModBus
 
 Symcon Modul für ModBus Zähler auf einem RS485 Bus.
 
