@@ -1,0 +1,14 @@
+{
+	"id": "{da9275ac-5ef3-4445-b5ec-52911ea8657f}",
+	"name": "UMG 96 RM-E",
+	"type": 3,
+	"vendor": "Janitza",
+	"aliases": 
+	[
+		"UMG96"
+	],
+	"parentRequirements": ["{E310B701-4AE7-458E-B618-EC13A1A6F6A8}"],
+	"childRequirements": [],
+	"implemented": ["{77B31ABB-18FA-4B91-BB63-E5B2AB5588F4}"],
+	"prefix": "UMG96"
+}
