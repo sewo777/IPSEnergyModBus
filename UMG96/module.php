@@ -10,11 +10,33 @@ class UMG96 extends IPSModule
         parent::Create();
         $this->ConnectParent("{A5F663AB-C400-4FE5-B207-4D67CC030564}");
         $this->RegisterPropertyInteger("Interval", 0);
+	$this->RegisterPropertyBoolean("TemperatureInput1", false);
+	$this->RegisterPropertyBoolean("TemperatureInput2", false);
         $this->RegisterTimer("UpdateTimer", 0, "UMG96_RequestRead(\$_IPS['TARGET']);");
     }
     public function ApplyChanges()
     {
         parent::ApplyChanges();
+	//Variable Anlegen oder LÃ¶schen 
+	//Temperatur 1
+	if ($this->ReadPropertyBoolean("TemperatureInput1") === true)
+		{
+	$this->RegisterVariableFloat("Temp1", "Temperatur 1", "Temperature", 8);
+	}
+	else
+	{
+	$this->UnregisterVariable("Temp1");
+	}
+	//Temperatur 2
+	if ($this->ReadPropertyBoolean("TemperatureInput2") === true)
+                {
+        $this->RegisterVariableFloat("Temp2", "Temperatur 2", "Temperature", 9);
+        }
+        else
+        {
+        $this->UnregisterVariable("Temp2");
+        }
+
         $this->RegisterVariableFloat("VoltL1", "Volt L1-L2", "Volt", 1);
         $this->RegisterVariableFloat("VoltL2", "Volt L2-L3", "Volt", 1);
         $this->RegisterVariableFloat("VoltL3", "Volt L1-L3", "Volt", 1);
@@ -139,6 +161,31 @@ class UMG96 extends IPSModule
         $this->SendDebug('Total', $total, 0);  
     	SetValue($this->GetIDForIdent("Total"), $total);   
       
+ 	//Temperatur 1
+        $Temp1 = $this->SendDataToParent(json_encode(Array("DataID" => "{E310B701-4AE7-458E-B618-EC13A1A6F6A8}", "Function" => 3, "Address" => 10006, "Quantity" => 2, "Data" => "")));
+        if ($Temp1 === false)
+        {
+            $this->unlock($IO);
+            return false;
+        }
+        $Temp1 = unpack("f", strrev(substr($Temp1, 2)))[1];
+        $this->SendDebug('Temperatur 1', $Temp1, 0);
+        SetValue($this->GetIDForIdent("Temp1"), $Temp1);
+
+	//Temperatur 2
+        $Temp2 = $this->SendDataToParent(json_encode(Array("DataID" => "{E310B701-4AE7-458E-B618-EC13A1A6F6A8}", "Function" => 3, "Address" => 10008, "Quantity" => 2, "Data" => "")));
+        if ($Temp2 === false)
+        {
+            $this->unlock($IO);
+            return false;
+        }
+        $Temp2 = unpack("f", strrev(substr($Temp2, 2)))[1];
+        $this->SendDebug('Temperatur 2', $Temp2, 0);
+        SetValue($this->GetIDForIdent("Temp2"), $Temp2);
+
+
+
+
         IPS_Sleep(333);
         $this->unlock($IO);
         return true;
@@ -164,7 +211,7 @@ class UMG96 extends IPSModule
         return false;
     }
     /**
-     * LÃ¶scht eine Semaphore.
+     * LÃƒÂ¶scht eine Semaphore.
      * @param string $ident Ein String der den Lock bezeichnet.
      */
     private function unlock($ident)
