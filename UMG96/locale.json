@@ -1,0 +1,11 @@
+{
+	"translations": {
+		"de": { 
+			"Location": "Standort",
+			"Country": "Land",
+			"Other parameters": "Weitere Parameter",
+			"Temperature input 1": "Temperatur Eingang 1",
+			"Temperature input 2": "Temperatur Eingang 2"
+		}
+	}
+}
