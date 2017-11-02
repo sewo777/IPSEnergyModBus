@@ -162,7 +162,7 @@ class UMG96 extends IPSModule
     	SetValue($this->GetIDForIdent("Total"), $total);   
       
  	//Temperatur 1
-        $Temp1 = $this->SendDataToParent(json_encode(Array("DataID" => "{E310B701-4AE7-458E-B618-EC13A1A6F6A8}", "Function" => 3, "Address" => 10006, "Quantity" => 2, "Data" => "")));
+        $Temp1 = $this->SendDataToParent(json_encode(Array("DataID" => "{E310B701-4AE7-458E-B618-EC13A1A6F6A8}", "Function" => 3, "Address" => 10865, "Quantity" => 2, "Data" => "")));
         if ($Temp1 === false)
         {
             $this->unlock($IO);
@@ -173,7 +173,7 @@ class UMG96 extends IPSModule
         SetValue($this->GetIDForIdent("Temp1"), $Temp1);
 
 	//Temperatur 2
-        $Temp2 = $this->SendDataToParent(json_encode(Array("DataID" => "{E310B701-4AE7-458E-B618-EC13A1A6F6A8}", "Function" => 3, "Address" => 10008, "Quantity" => 2, "Data" => "")));
+        $Temp2 = $this->SendDataToParent(json_encode(Array("DataID" => "{E310B701-4AE7-458E-B618-EC13A1A6F6A8}", "Function" => 3, "Address" => 10867, "Quantity" => 2, "Data" => "")));
         if ($Temp2 === false)
         {
             $this->unlock($IO);
