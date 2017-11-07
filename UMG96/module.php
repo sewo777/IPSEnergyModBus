@@ -170,7 +170,13 @@ class UMG96 extends IPSModule
         }
         $Temp1 = unpack("f", strrev(substr($Temp1, 2)))[1];
         $this->SendDebug('Temperatur 1', $Temp1, 0);
-        SetValue($this->GetIDForIdent("Temp1"), $Temp1);
+	if ($this->ReadPropertyBoolean("TemperatureInput1") === true)
+		{
+		SetValue($this->GetIDForIdent("Temp1"), $Temp1);
+		}
+	else
+		{
+		}    
 
 	//Temperatur 2
         $Temp2 = $this->SendDataToParent(json_encode(Array("DataID" => "{E310B701-4AE7-458E-B618-EC13A1A6F6A8}", "Function" => 3, "Address" => 10867, "Quantity" => 2, "Data" => "")));
@@ -181,8 +187,13 @@ class UMG96 extends IPSModule
         }
         $Temp2 = unpack("f", strrev(substr($Temp2, 2)))[1];
         $this->SendDebug('Temperatur 2', $Temp2, 0);
-        SetValue($this->GetIDForIdent("Temp2"), $Temp2);
-
+        if ($this->ReadPropertyBoolean("TemperatureInput1") === true)
+		{
+		SetValue($this->GetIDForIdent("Temp2"), $Temp2);
+		}
+	else
+		{
+		}    
 
 
 
