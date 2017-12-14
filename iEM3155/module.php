@@ -40,7 +40,7 @@ class iEM3155 extends IPSModule
         $this->RegisterVariableFloat("WattL2", "Watt L2", "Watt.14490", 4);
         $this->RegisterVariableFloat("WattL3", "Watt L3", "Watt.14490", 4);
 
-        $this->RegisterVariableFloat("Watt_Total", "Verbrach Gesamt", "Watt.14490", 5);
+        $this->RegisterVariableFloat("Watt_Total", "Verbrauch Gesamt", "Watt.14490", 5);
 
         
        
