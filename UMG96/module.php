@@ -195,6 +195,17 @@ class UMG96 extends IPSModule
             $this->SendDebug('Cos L'. ($index + 1), $Cos, 0);
 	    SetValue($this->GetIDForIdent("CosPhiL" . ($index + 1)), $Cos);
         }
+	    
+	//Drehfeld
+        $Drehfeld = $this->SendDataToParent(json_encode(Array("DataID" => "{E310B701-4AE7-458E-B618-EC13A1A6F6A8}", "Function" => 3, "Address" => 19052, "Quantity" => 2, "Data" => "")));
+        if ($Drehfeld === false)
+        {
+            $this->unlock($IO);
+            return false;
+        }
+        $Drehfeld = unpack("f", strrev(substr($Drehfeld, 2)))[1];
+        $this->SendDebug('Drehfeld', $Drehfeld, 0);
+        SetValue($this->GetIDForIdent("Drehfeld"), $Drehfeld);
       
  	//Temperatur 1
         $Temp1 = $this->SendDataToParent(json_encode(Array("DataID" => "{E310B701-4AE7-458E-B618-EC13A1A6F6A8}", "Function" => 3, "Address" => 10865, "Quantity" => 2, "Data" => "")));
