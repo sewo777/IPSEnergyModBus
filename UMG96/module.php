@@ -17,7 +17,7 @@ class UMG96 extends IPSModule
 	    
 	if (!IPS_VariableProfileExists("Cos.Phi")){
          	IPS_CreateVariableProfile("Cos.Phi", 2);
-                IPS_SetVariableProfileDigits("Cos.Phi", 1);
+                IPS_SetVariableProfileDigits("Cos.Phi", 2);
                 IPS_SetVariableProfileText("Cos.Phi", "", "");
             }
     }
@@ -177,15 +177,15 @@ class UMG96 extends IPSModule
 	//Cos Phi	
 	for ($index = 0; $index < 3; $index++)
         {
-            $Cos2 = $this->SendDataToParent(json_encode(Array("DataID" => "{E310B701-4AE7-458E-B618-EC13A1A6F6A8}", "Function" => 3, "Address" => 19044 + ($index * 2), "Quantity" => 2, "Data" => "")));
-            if ($Cos2 === false)
+            $Cos = $this->SendDataToParent(json_encode(Array("DataID" => "{E310B701-4AE7-458E-B618-EC13A1A6F6A8}", "Function" => 3, "Address" => 19044 + ($index * 2), "Quantity" => 2, "Data" => "")));
+            if ($Cos === false)
             {
                 $this->unlock($IO);
                 return false;
             }
-            $Cos2 = unpack("f", strrev(substr($Cos2, 2)))[1];
-            $this->SendDebug('Cos L'. ($index + 1), $Cos2, 0);
-	    SetValue($this->GetIDForIdent("Cos2L" . ($index + 1)), $Cos2);
+            $Cos = unpack("f", strrev(substr($Cos, 2)))[1];
+            $this->SendDebug('Cos L'. ($index + 1), $Cos, 0);
+	    SetValue($this->GetIDForIdent("CosL" . ($index + 1)), $Cos);
         }
       
  	//Temperatur 1
