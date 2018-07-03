@@ -80,9 +80,9 @@ class UMG96 extends IPSModule
         $this->RegisterVariableFloat("Watt_Total", "Verbrauch Gesamt", "Watt.14490", 5);
         
        
-        $this->RegisterVariableFloat("Frequenz", "Frequenz", "Hertz.50", 6);
+        $this->RegisterVariableFloat("Frequenz", "Frequenz", "Hertz.50", 7);
 	    
-        $this->RegisterVariableFloat("Total", "Total kWh", "Electricity", 7);
+        $this->RegisterVariableFloat("Total", "Total kWh", "Electricity", 6);
 	    
 	$this->RegisterVariableFloat("CosPhiL1", "Cos Phi L1", "Cos.Phi", 10);
 	$this->RegisterVariableFloat("CosPhiL2", "Cos Phi L2", "Cos.Phi", 10);
