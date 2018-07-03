@@ -13,15 +13,18 @@ class UMG96 extends IPSModule
 	$this->RegisterPropertyBoolean("TemperatureInput1", false);
 	$this->RegisterPropertyBoolean("TemperatureInput2", false);
         $this->RegisterTimer("UpdateTimer", 0, "UMG96_RequestRead(\$_IPS['TARGET']);");
+	//Profil
+	    
+	if (!IPS_VariableProfileExists("Cos.Phi")){
+         	IPS_CreateVariableProfile("Cos.Phi", 2);
+                IPS_SetVariableProfileDigits("Cos.Phi", 1);
+                IPS_SetVariableProfileText("Cos.Phi", "", "");
+            }
     }
     public function ApplyChanges()
     {
         parent::ApplyChanges();
-	    
-	//Profile Anlegen
-	    
-	$this->RegisterProfileFloat("Cos.Phi", "", "", "",    0, 100, 1);
-	    
+	 
 	//Variable Anlegen oder LÃ¶schen 
 	//Temperatur 1
 	if ($this->ReadPropertyBoolean("TemperatureInput1") === true)
