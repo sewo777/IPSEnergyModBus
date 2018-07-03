@@ -26,6 +26,16 @@ class UMG96 extends IPSModule
                 IPS_SetVariableProfileAssociation("UMG96.Rotation", 0, "None", "", -1);
                 IPS_SetVariableProfileAssociation("UMG96.Rotation", 1, "Rechts", "", -1);
             }
+	if (!IPS_VariableProfileExists("Scheinleistung")){
+         	IPS_CreateVariableProfile("Scheinleistung", 2);
+                IPS_SetVariableProfileDigits("Scheinleistung", 2);
+                IPS_SetVariableProfileText("Scheinleistung", "", " VA");
+            }
+	if (!IPS_VariableProfileExists("Blindleistung")){
+         	IPS_CreateVariableProfile("Blindleistung", 2);
+                IPS_SetVariableProfileDigits("Blindleistung", 2);
+                IPS_SetVariableProfileText("Blindleistung", "", " var");
+            }
     }
     public function ApplyChanges()
     {
@@ -79,6 +89,14 @@ class UMG96 extends IPSModule
 	$this->RegisterVariableFloat("CosPhiL3", "Cos Phi L3", "Cos.Phi", 10);
 	
 	$this->RegisterVariableInteger("Drehfeld", "Drehfeld", "UMG96.Rotation", 11);
+	    
+	$this->RegisterVariableFloat("ScheinleistungL1", "Scheinleistung L1", "Scheinleistung", 12);
+	$this->RegisterVariableFloat("ScheinleistungL2", "Scheinleistung L2", "Scheinleistung", 12);
+	$this->RegisterVariableFloat("ScheinleistungL3", "Scheinleistung L3", "Scheinleistung", 12);
+	    
+	$this->RegisterVariableFloat("BlindleistungL1", "Blindleistung L1", "Blindleistung", 13);
+	$this->RegisterVariableFloat("BlindleistungL2", "Blindleistung L2", "Blindleistung", 13);
+	$this->RegisterVariableFloat("BlindleistungL3", "Blindleistung L3", "Blindleistung", 13);
 	    
         
         if ($this->ReadPropertyInteger("Interval") > 0)
@@ -206,6 +224,34 @@ class UMG96 extends IPSModule
         $Drehfeld = unpack("f", strrev(substr($Drehfeld, 2)))[1];
         $this->SendDebug('Drehfeld', $Drehfeld, 0);
         SetValue($this->GetIDForIdent("Drehfeld"), $Drehfeld);
+	    
+	//Scheinleistung	
+	for ($index = 0; $index < 3; $index++)
+        {
+            $Scheinleistung = $this->SendDataToParent(json_encode(Array("DataID" => "{E310B701-4AE7-458E-B618-EC13A1A6F6A8}", "Function" => 3, "Address" => 19028 + ($index * 2), "Quantity" => 2, "Data" => "")));
+            if ($Scheinleistung === false)
+            {
+                $this->unlock($IO);
+                return false;
+            }
+            $Scheinleistung = unpack("f", strrev(substr($Scheinleistung, 2)))[1];
+            $this->SendDebug('Scheinleistung L'. ($index + 1), $Scheinleistung, 0);
+	    SetValue($this->GetIDForIdent("ScheinleistungL" . ($index + 1)), $Scheinleistung);
+        }
+	    
+	//Blindleistung	
+	for ($index = 0; $index < 3; $index++)
+        {
+            $Blindleistung = $this->SendDataToParent(json_encode(Array("DataID" => "{E310B701-4AE7-458E-B618-EC13A1A6F6A8}", "Function" => 3, "Address" => 19036 + ($index * 2), "Quantity" => 2, "Data" => "")));
+            if ($Blindleistung === false)
+            {
+                $this->unlock($IO);
+                return false;
+            }
+            $Blindleistung = unpack("f", strrev(substr($Blindleistung, 2)))[1];
+            $this->SendDebug('Blindleistung L'. ($index + 1), $Blindleistung, 0);
+	    SetValue($this->GetIDForIdent("BlindleistungL" . ($index + 1)), $Blindleistung);
+        }
       
  	//Temperatur 1
         $Temp1 = $this->SendDataToParent(json_encode(Array("DataID" => "{E310B701-4AE7-458E-B618-EC13A1A6F6A8}", "Function" => 3, "Address" => 10865, "Quantity" => 2, "Data" => "")));
