@@ -20,6 +20,12 @@ class UMG96 extends IPSModule
                 IPS_SetVariableProfileDigits("Cos.Phi", 2);
                 IPS_SetVariableProfileText("Cos.Phi", "", "");
             }
+	if (!IPS_VariableProfileExists("UMG96.Rotation")){
+                IPS_CreateVariableProfile("UMG96.Rotation", 1);
+                IPS_SetVariableProfileAssociation("UMG96.Rotation", -1, "Links", "", -1);
+                IPS_SetVariableProfileAssociation("UMG96.Rotation", 0, "None", "", -1);
+                IPS_SetVariableProfileAssociation("UMG96.Rotation", 1, "Rechts", "", -1);
+            }
     }
     public function ApplyChanges()
     {
@@ -61,7 +67,7 @@ class UMG96 extends IPSModule
         $this->RegisterVariableFloat("WattL2", "Watt L2", "Watt.14490", 4);
         $this->RegisterVariableFloat("WattL3", "Watt L3", "Watt.14490", 4);
 	    
-        $this->RegisterVariableFloat("Watt_Total", "Verbrach Gesamt", "Watt.14490", 5);
+        $this->RegisterVariableFloat("Watt_Total", "Verbrauch Gesamt", "Watt.14490", 5);
         
        
         $this->RegisterVariableFloat("Frequenz", "Frequenz", "Hertz.50", 6);
@@ -71,6 +77,8 @@ class UMG96 extends IPSModule
 	$this->RegisterVariableFloat("CosPhiL1", "Cos Phi L1", "Cos.Phi", 10);
 	$this->RegisterVariableFloat("CosPhiL2", "Cos Phi L2", "Cos.Phi", 10);
 	$this->RegisterVariableFloat("CosPhiL3", "Cos Phi L3", "Cos.Phi", 10);
+	
+	$this->RegisterVariableInteger("Drehfeld", "Drehfeld", "UMG96.Rotation", 11);
 	    
         
         if ($this->ReadPropertyInteger("Interval") > 0)
