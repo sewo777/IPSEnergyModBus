@@ -17,6 +17,11 @@ class UMG96 extends IPSModule
     public function ApplyChanges()
     {
         parent::ApplyChanges();
+	    
+	//Profile Anlegen
+	    
+	$this->RegisterProfileFloat("Cos.Phi", "", "", "",    0, 100, 1);
+	    
 	//Variable Anlegen oder LÃ¶schen 
 	//Temperatur 1
 	if ($this->ReadPropertyBoolean("TemperatureInput1") === true)
@@ -59,6 +64,11 @@ class UMG96 extends IPSModule
         $this->RegisterVariableFloat("Frequenz", "Frequenz", "Hertz.50", 6);
 	    
         $this->RegisterVariableFloat("Total", "Total kWh", "Electricity", 7);
+	    
+	$this->RegisterVariableFloat("CosPhiL1", "Cos Phi L1", "Cos.Phi", 10);
+	$this->RegisterVariableFloat("CosPhiL2", "Cos Phi L2", "Cos.Phi", 10);
+	$this->RegisterVariableFloat("CosPhiL3", "Cos Phi L3", "Cos.Phi", 10);
+	    
         
         if ($this->ReadPropertyInteger("Interval") > 0)
             $this->SetTimerInterval("UpdateTimer", $this->ReadPropertyInteger("Interval"));
@@ -159,7 +169,21 @@ class UMG96 extends IPSModule
         }  
         $total = unpack("f", strrev(substr($total,2)))[1] / 1000;
         $this->SendDebug('Total', $total, 0);  
-    	SetValue($this->GetIDForIdent("Total"), $total);   
+    	SetValue($this->GetIDForIdent("Total"), $total); 
+	    
+	//Cos Phi	
+	for ($index = 0; $index < 3; $index++)
+        {
+            $Cos2 = $this->SendDataToParent(json_encode(Array("DataID" => "{E310B701-4AE7-458E-B618-EC13A1A6F6A8}", "Function" => 3, "Address" => 19044 + ($index * 2), "Quantity" => 2, "Data" => "")));
+            if ($Cos2 === false)
+            {
+                $this->unlock($IO);
+                return false;
+            }
+            $Cos2 = unpack("f", strrev(substr($Cos2, 2)))[1];
+            $this->SendDebug('Cos L'. ($index + 1), $Cos2, 0);
+	    SetValue($this->GetIDForIdent("Cos2L" . ($index + 1)), $Cos2);
+        }
       
  	//Temperatur 1
         $Temp1 = $this->SendDataToParent(json_encode(Array("DataID" => "{E310B701-4AE7-458E-B618-EC13A1A6F6A8}", "Function" => 3, "Address" => 10865, "Quantity" => 2, "Data" => "")));
