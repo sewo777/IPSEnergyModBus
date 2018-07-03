@@ -185,7 +185,7 @@ class UMG96 extends IPSModule
             }
             $Cos = unpack("f", strrev(substr($Cos, 2)))[1];
             $this->SendDebug('Cos L'. ($index + 1), $Cos, 0);
-	    SetValue($this->GetIDForIdent("Cos L" . ($index + 1)), $Cos);
+	    SetValue($this->GetIDForIdent("CosPhiL" . ($index + 1)), $Cos);
         }
       
  	//Temperatur 1
