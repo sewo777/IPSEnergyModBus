@@ -50,15 +50,15 @@ class SDM220 extends IPSModule
         SetValue($this->GetIDForIdent("Spannung"), $spannung);
         }
   //Strom
-        $strom = $this->SendDataToParent(json_encode(Array("DataID" => "{E310B701-4AE7-458E-B618-EC13A1A6F6A8}", "Function" => 4, "Address" => 6, "Quantity" => 2, "Data" => "")));
-        if ($strom === false)
+        $ampere = $this->SendDataToParent(json_encode(Array("DataID" => "{E310B701-4AE7-458E-B618-EC13A1A6F6A8}", "Function" => 4, "Address" => 6, "Quantity" => 2, "Data" => "")));
+        if ($ampere === false)
         {
             $this->unlock($IO);
             return false;
         }
-        $strom = unpack("f", strrev(substr($strom, 2)))[1];
-        $this->SendDebug('Strom', $strom, 0);
-        SetValue($this->GetIDForIdent("Strom"), $strom);
+        $ampere = unpack("f", strrev(substr($ampere, 2)))[1];
+        $this->SendDebug('Strom', $ampere, 0);
+        SetValue($this->GetIDForIdent("Strom"), $ampere);
         }
         
   //Watt
