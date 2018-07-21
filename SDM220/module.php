@@ -57,8 +57,8 @@ class SDM220 extends IPSModule
             return false;
         }
         $ampere = unpack("f", strrev(substr($ampere, 2)))[1];
-        $this->SendDebug('Strom', $ampere, 0);
-        SetValue($this->GetIDForIdent("Strom"), $ampere);
+        $this->SendDebug('Ampere', $ampere, 0);
+        SetValue($this->GetIDForIdent("Ampere"), $ampere);
         
         
   //Watt
