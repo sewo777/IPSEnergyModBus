@@ -39,7 +39,7 @@ class SDM220 extends IPSModule
             
             
 	//Spannung
-        $spannung = $this->SendDataToParent(json_encode(Array("DataID" => "{E310B701-4AE7-458E-B618-EC13A1A6F6A8}", "Function" => 3, "Address" => 0, "Quantity" => 2, "Data" => "")));
+        $spannung = $this->SendDataToParent(json_encode(Array("DataID" => "{E310B701-4AE7-458E-B618-EC13A1A6F6A8}", "Function" => 4, "Address" => 0, "Quantity" => 2, "Data" => "")));
         if ($spannung === false)
         {
             $this->unlock($IO);
@@ -50,7 +50,7 @@ class SDM220 extends IPSModule
         SetValue($this->GetIDForIdent("Spannung"), $spannung);
         }
   //Strom
-        $strom = $this->SendDataToParent(json_encode(Array("DataID" => "{E310B701-4AE7-458E-B618-EC13A1A6F6A8}", "Function" => 3, "Address" => 6, "Quantity" => 2, "Data" => "")));
+        $strom = $this->SendDataToParent(json_encode(Array("DataID" => "{E310B701-4AE7-458E-B618-EC13A1A6F6A8}", "Function" => 4, "Address" => 6, "Quantity" => 2, "Data" => "")));
         if ($strom === false)
         {
             $this->unlock($IO);
@@ -62,7 +62,7 @@ class SDM220 extends IPSModule
         }
         
   //Watt
-        $watt = $this->SendDataToParent(json_encode(Array("DataID" => "{E310B701-4AE7-458E-B618-EC13A1A6F6A8}", "Function" => 3, "Address" => 12, "Quantity" => 2, "Data" => "")));
+        $watt = $this->SendDataToParent(json_encode(Array("DataID" => "{E310B701-4AE7-458E-B618-EC13A1A6F6A8}", "Function" => 4, "Address" => 12, "Quantity" => 2, "Data" => "")));
         if ($watt === false)
         {
             $this->unlock($IO);
@@ -74,7 +74,7 @@ class SDM220 extends IPSModule
         }
         
   //Frequenz
-        $frequenz = $this->SendDataToParent(json_encode(Array("DataID" => "{E310B701-4AE7-458E-B618-EC13A1A6F6A8}", "Function" => 3, "Address" => 70, "Quantity" => 2, "Data" => "")));
+        $frequenz = $this->SendDataToParent(json_encode(Array("DataID" => "{E310B701-4AE7-458E-B618-EC13A1A6F6A8}", "Function" => 4, "Address" => 70, "Quantity" => 2, "Data" => "")));
         if ($frequenz === false)
         {
             $this->unlock($IO);
@@ -86,7 +86,7 @@ class SDM220 extends IPSModule
         }
 	//Verbrauch
         
-          $total= $this->SendDataToParent(json_encode(Array("DataID" => "{E310B701-4AE7-458E-B618-EC13A1A6F6A8}", "Function" => 3, "Address" => 72, "Quantity" => 2, "Data" => "")));   
+          $total= $this->SendDataToParent(json_encode(Array("DataID" => "{E310B701-4AE7-458E-B618-EC13A1A6F6A8}", "Function" => 4, "Address" => 72, "Quantity" => 2, "Data" => "")));   
         if ($total === false)   
         {   
             $this->unlock($IO);   
