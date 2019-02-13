@@ -2,7 +2,7 @@
 
 Symcon Modul für ModBus Zähler auf einem RS485 Bus.
 
-# IPSiEM3155
+# iEM3155
 Schneider Electric Energiezähler iEM3000 Serie
 - __iEM3150__  
 - __iEM3155__  
